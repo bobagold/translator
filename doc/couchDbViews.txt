@@ -1,0 +1,50 @@
+1. Query all translations of a page
+
+Map:
+
+function(doc) {
+  if (doc.pageTranslations) {
+    for (pageId in doc.pageTranslations) {
+      var str = {key:doc._id, translation: doc.pageTranslations[pageId] || doc.defaultTranslation};
+      emit(pageId, str);
+    }
+  }
+}
+
+Query:
+{locale}/_design/strings/_view/by_page_id?key="{pageId}"
+
+2. All page Ids of database
+
+Map:
+
+function(doc) {
+  if (doc.pageTranslations) {
+    for (pageId in doc.pageTranslations) {
+      emit(pageId, null);
+    }
+  }
+}
+
+Reduce:
+
+function(keys, values) {
+   return null;
+}
+
+Query:
+
+{locale}/_design/pages/_view/all_ids?group=true
+
+3. All page objects
+
+function(doc) {
+  if (doc.pageTranslations) {
+    for (pageId in doc.pageTranslations) {
+      emit(pageId, doc);
+    }
+  }
+}
+
+Query:
+{locale}/_design/objects/_view/by_page_id?key="{pageId}"

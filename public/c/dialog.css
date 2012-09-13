@@ -1,0 +1,4 @@
+textarea {width:100%;}
+input {width:100%;}
+#translateDialogContainer {display:none}
+#translateDialogContainer i {font-size: 16px; padding-top: 10px;}
