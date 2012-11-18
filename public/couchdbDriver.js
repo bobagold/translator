@@ -181,7 +181,7 @@ MuzzyTranslatorCouchDbDriver.prototype.translateInterface = function($, restInte
         },
         readPageIds: function(locale, successCallback) {
             restInterface.get(
-                createPath(locale, '_design') + '/pages/_view/all_ids?group=true',
+                createPath(locale, '_design') + '/main/_view/all_page_ids?group=true',
                 function(data) {
                     var pageIds=[], i;
                     for(i=0; i< data.rows.length; i++) {
@@ -193,7 +193,7 @@ MuzzyTranslatorCouchDbDriver.prototype.translateInterface = function($, restInte
         },
         readPageObjects: function(locale, pageId, successCallback) {
             restInterface.get(
-                createPath(locale, '_design') + '/objects/_view/by_page_id?key="' + pageId + '"',
+                createPath(locale, '_design') + '/main/_view/by_page_id?key="' + pageId + '"',
                 function(data) {
                     var objects=[], i, o;
                     for(i=0; i< data.rows.length; i++) {
