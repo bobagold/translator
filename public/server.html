@@ -1,0 +1,17 @@
+<html>
+<head>
+<script>document.domain = document.location.hostname.substr(2);</script>
+<script type="text/javascript" src="/r/jquery/jquery.min.js"></script>
+<script type="text/javascript" src="/couchdbDriver.js"></script>
+<script type="text/javascript" src="/translations.js"></script>
+
+<script>
+function initTranslation (locale, pageId) {
+    window.mts = new MuzzyTranslations(locale, pageId, new MuzzyTranslatorCouchDbDriver());
+}
+</script>
+</head>
+<body>
+
+</body>
+</html>

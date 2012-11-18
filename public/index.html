@@ -10,7 +10,7 @@
 
 <script>
 function initTranslation (locale, pageId) {
-    var mt = new MuzzyTranslator(locale, pageId, new MuzzyTranslatorCouchDbDriver());
+    window.mt = new MuzzyTranslator(locale, pageId, new MuzzyTranslatorCouchDbDriver());
     jQuery(document).ready(
         function () {
             mt.bindEvents();
