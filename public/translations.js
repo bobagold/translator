@@ -27,6 +27,9 @@ function MuzzyTranslations(locale, pageId, dbDriver) {
                     successCallback(keyToTranslationMap);
                 }
             });
+        },
+        registerTranslation: function(key, text) {
+            dbDriver.registerTranslation(locale, pageId, key, text)
         }
     };
 }

@@ -179,6 +179,25 @@ MuzzyTranslatorCouchDbDriver.prototype.translateInterface = function($, restInte
                 );
             });
         },
+        registerTranslation: function(locale, pageId, key, defaultTranslation) {
+            var that = this;
+            readLocalizedStringObject(locale, key, function(str){
+                if (typeof(str._id) !== 'undefined') return;
+                str.key = defaultTranslation;
+                restInterface.put(
+                    createPath(locale, key),
+                    str,
+                    null,
+                    function(xhr) {
+                        if(xhr.responseText.match(/no_db_file/)) {
+                            dbInstaller.install(locale, function() {
+                                that.registerTranslation(locale, pageId, key, defaultTranslation);
+                            });
+                        }
+                    }
+                );
+            });
+        },
         readPageIds: function(locale, successCallback) {
             restInterface.get(
                 createPath(locale, '_design') + '/main/_view/all_page_ids?group=true',
