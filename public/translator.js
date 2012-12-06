@@ -12,7 +12,7 @@ function MuzzyTranslator(locale, pageId, dbDriver, deps) {
         kf = deps.keysFinder || this.keysFinder(jQuery, ks),
         ha = deps.handler || this.handler(jQuery, di);
 
-    return this.publicInterface(jQuery, di, kf, ks, ha);
+    return this.publicInterface(jQuery, di, kf, ks, ha, locale, pageId, dbDriver);
 }
 
 MuzzyTranslator.prototype.dialog = function($, locale, pageId, dbDriver) {
@@ -277,7 +277,7 @@ MuzzyTranslator.prototype.handler = function($, dialog) {
     };
 };
 
-MuzzyTranslator.prototype.publicInterface = function ($, dialog, keysFinder, keysStorage, handler) {
+MuzzyTranslator.prototype.publicInterface = function ($, dialog, keysFinder, keysStorage, handler, locale, pageId, dbDriver) {
     "use strict";
 
     function findTranslationKeys(kf) {
@@ -314,6 +314,10 @@ MuzzyTranslator.prototype.publicInterface = function ($, dialog, keysFinder, key
             findTranslationKeys(this.t.keysFinder);
             removeSpecialMarkUp(this.t.keysFinder);
             attachHandlers(this.t.keysStorage, this.t.handler);
+        },
+
+        registerTranslation: function(key, text) {
+            dbDriver.registerTranslation(locale, pageId, key, text)
         }
     };
 };
