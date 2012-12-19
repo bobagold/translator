@@ -11,12 +11,19 @@
 <script>
 function initTranslation (locale, pageId) {
     window.mt = new MuzzyTranslator(locale, pageId, new MuzzyTranslatorCouchDbDriver());
+    if (parent.window.MtLoaded) {
+        parent.window.MtLoaded(window.mt);
+    }
     jQuery(document).ready(
         function () {
             mt.bindEvents();
             if (parent.window.jQuery) {
                 parent.window.jQuery('body').bind("ajaxStop", function(){mt.bindEvents();});
             }
+            if ("onhashchange" in parent.window) // does the browser support the hashchange event?
+                parent.window.onhashchange = function () {
+                    mt.bindEvents();
+                }
         }
     );
 }

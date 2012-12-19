@@ -54,6 +54,7 @@ MuzzyTranslator.prototype.dialog = function($, locale, pageId, dbDriver) {
             keys,
             function(i, key) {
                 dbDriver.readObject(locale, key, function(data) {
+                    console.log('readStringObjects', o, key, data);
                     o[key] = data;
 
                     if (length(o) === keys.length) {
@@ -71,6 +72,7 @@ MuzzyTranslator.prototype.dialog = function($, locale, pageId, dbDriver) {
         $.each(
             stringObjects,
             function (key, str) {
+                console.log("ok", key, str, str.key, iTag(str.key), "end");
                 iTag(str.key).appendTo(dialogForm());
                 textarea(
                     key,
